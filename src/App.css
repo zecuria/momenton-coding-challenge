@@ -1,3 +1,16 @@
+table {
+  display: table;
+}
+
+tr {
+  display: table-row;
+}
+
+td {
+  display: table-cell;
+  border: black 1px solid;
+}
+
 .App {
   text-align: center;
 }

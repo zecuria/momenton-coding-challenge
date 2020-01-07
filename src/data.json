@@ -1,0 +1,33 @@
+{
+    "100": {
+        "name": "Alen",
+        "managerId": "150"
+    },
+    "220": {
+        "name": "Martin",
+        "managerId": "100"
+    },
+    "150": {
+        "name": "Jamie"
+    },
+    "275": {
+        "name": "Alex",
+        "managerId": "100"
+    },
+    "400": {
+        "name": "Steve",
+        "managerId": "150"
+    },
+    "190": {
+        "name": "david",
+        "managerid": "400"
+    },
+    "322": {
+        "name": "Sparrow",
+        "managerId": "275"
+    },
+    "500": {
+        "name": "Carol",
+        "managerId": "Jason"
+    }
+}
