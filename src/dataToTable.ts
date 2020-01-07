@@ -31,6 +31,7 @@ const convertDataToTrees = (employeeMap: EmployeeMap): EmployeeHiarchy[] => {
             childrenMap[managerId] = childrenMap[managerId] || [];
             childrenMap[managerId].push(listItem);
 
+            // check if manager is a valid employee otherwise add the manager to the hiarchy
             if (!employeeMap[managerId]) {
                 hiarchyTrees.push({ id: managerId, children: childrenMap[managerId] });
             }
@@ -48,6 +49,8 @@ interface TableValue {
     depth: number
 }
 
+// create an array of id's and depths to be used to create the table
+// this is achieved by applying depth first traversal to the individual higharchy trees
 const createTableFromTree = (root: EmployeeHiarchy, depth = 0): TableValue[] => {
     if (!root) {
         return [];
@@ -64,16 +67,24 @@ const createTableFromTree = (root: EmployeeHiarchy, depth = 0): TableValue[] => 
     return answer;
 };
 
+// convert the data map to the table
 const dataToTable = (employeeMap: EmployeeMap) => {
     const trees = convertDataToTrees(employeeMap);
 
+    // get the raw data in of each of the trees and flatten the array
     const rawData = trees.map((tree) => createTableFromTree(tree)).reduce((acc, tableData) => [...acc, ...tableData], []);
-    const maxDepth = rawData.reduce((max, { depth }) => depth > max ? depth : max, 0);
+
+    // get the max depth in order to know how many columns to have
+    const numberOfColumns = 1 + rawData.reduce((max, { depth }) => depth > max ? depth : max, 0);
 
     const table = rawData.map(({ depth, id }) => {
-        const row = Array(maxDepth + 1).fill(null);
+        // create a number of empty cells in the row
+        const row = Array(numberOfColumns).fill('');
+
+        // initialize the cell contianing the value in the row
         const { name = id } = employeeMap[id] || {};
         row[depth] = name;
+
         return row;
     });
 
